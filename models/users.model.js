@@ -14,7 +14,10 @@ const userSchema = new mongoose.Schema({
     fullName: { type : String , default : null,trim:true},
     password: { type: String , required:true },
     TwoFAEnabled: {type:Boolean,default : false},
-    templates : {type : []}
+    templates : [{ 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "templates"
+     }]
 }, { timestamps: true });
 
 // To use Aggregation Pipeline within User Model
