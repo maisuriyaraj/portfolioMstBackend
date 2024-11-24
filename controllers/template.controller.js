@@ -39,7 +39,7 @@ export async function createTemplate(request,response){
 
     } catch (error) {
         console.log(error)
-        response.json(new APIResponse(400,{},"Create Template Error "));
+        return response.json(new APIResponse(400,{},"Create Template Error "));
     }
 }
 
@@ -54,6 +54,34 @@ export async function getUserDetails(request,response){
         }
     } catch (error) {
         console.log(error)
-        response.json(new APIResponse(400,{},"Create Template Error "));
+        return response.json(new APIResponse(400,{},"Create Template Error "));
+    }
+}
+
+export async function updateTemplate(request,response){
+    try {
+        const {template_id,template_json} = request.body;
+
+        if(!template_id){
+            return response.status(401).json(new APIResponse(401 , {} , "template_id is Required !"));
+        }
+
+        if(!template_json){
+            return response.status(401).json(new APIResponse(401, {} , "template_json is Required !"));
+        }
+
+        await templateModel.updateOne({
+            _id : template_id
+        },{
+            $set : {
+                template_json
+            }
+        });
+
+        return response.status(201).json(new APIResponse(201,{} , "Template  Updated Successfully !"));
+    } catch (error) {
+        console.log(error);
+        return response.json(new APIResponse(400,{},"Update Template Error "));
+        
     }
 }
