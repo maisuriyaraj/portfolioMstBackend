@@ -12,6 +12,8 @@ const templateSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"
     },
+    is_draft : {type:Boolean,default : false},
+    is_publish : {type: Boolean,default : false}
 }, {
     timestamps: true
 });

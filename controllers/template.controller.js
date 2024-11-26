@@ -7,7 +7,7 @@ export async function createTemplate(request,response){
     try {
 
         // Get The Request Payload
-        const { template_name , is_protected} = request.body ;
+        const { template_name ,template_tags} = request.body ;
         const {user_id} = request;
 
         // Check validation
@@ -23,7 +23,8 @@ export async function createTemplate(request,response){
         const insertedDocument = await templateModel.create({
             user : user_id,
             template_name : template_name,
-            is_protected : is_protected || false
+            // is_protected : is_protected || false,
+            template_tags : template_tags
         });
 
         // Insert Template ID into Users Templates Array 
